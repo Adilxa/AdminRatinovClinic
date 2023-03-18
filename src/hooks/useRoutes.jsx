@@ -17,6 +17,10 @@ import AddPrice from "../pages/PricePage/AddPrice";
 import CommentsPage from "../pages/Comments/CommentsPage";
 import CommentsDetail from "../pages/Comments/CommentsDetail";
 import AddComment from "../pages/Comments/AddComment";
+import YoutubePage from "../pages/YoutubePage/YoutubePage";
+import YoutubeDetail from "../pages/YoutubePage/YoutubeDetail";
+import AddVideo from "../pages/YoutubePage/AddVideo";
+import ProfessionPage from "../pages/ProfessionPage/ProfessionPage";
 
 const useRoutes = (isAuth) => {
   if (!isAuth) {
@@ -56,6 +60,10 @@ const useRoutes = (isAuth) => {
           <Route path="/comments" element={<CommentsPage />} />
           <Route path="/comments/:id" element={<CommentsDetail />} />
           <Route path="/comments/create" element={<AddComment />} />
+          <Route path="/youtube" element={<YoutubePage />} />
+          <Route path="/youtube/:id" element={<YoutubeDetail />} />
+          <Route path="/youtube/create" element={<AddVideo />} />
+          <Route path="/profession" element={<ProfessionPage />} />
         </Routes>
       </Grid>
     </Grid>

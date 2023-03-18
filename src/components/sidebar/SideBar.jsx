@@ -5,33 +5,46 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import CommuteIcon from "@mui/icons-material/Commute";
-import HandshakeIcon from "@mui/icons-material/Handshake";
-import AddIcCallIcon from "@mui/icons-material/AddIcCall";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link, useLocation } from "react-router-dom";
 import { logout } from "../../firebase/firebase";
+import GroupsIcon from "@mui/icons-material/Groups";
+import CommentIcon from "@mui/icons-material/Comment";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import BookIcon from "@mui/icons-material/Book";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 
 const links = [
   {
     path: "/",
     title: "Доктора",
-    Icon: CommuteIcon,
+    Icon: GroupsIcon,
   },
   {
     path: "/comments",
     title: "Комментарии",
-    Icon: HandshakeIcon,
+    Icon: CommentIcon,
   },
   {
     path: "/price",
     title: "Цены",
-    Icon: AddIcCallIcon,
+    Icon: AttachMoneyIcon,
   },
   {
     path: "/blogs",
     title: "Блоги",
-    Icon: AddIcCallIcon,
+    Icon: BookIcon,
+  },
+  {
+    path: "/youtube",
+    title: "Видео",
+    Icon: YouTubeIcon,
+  },
+  {
+    path: "/profession",
+    title: "Профессии",
+    Icon: LocalHospitalIcon,
   },
 ];
 

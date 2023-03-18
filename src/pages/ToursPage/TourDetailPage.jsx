@@ -19,7 +19,7 @@ function TourDetailPage() {
     updateDoctor,
     setLoading,
   } = useTours();
-  // const { getTransports, transports } = useTransports();
+
   const [url, setUrl] = useState();
   const [fileData, setFileData] = useState();
 
@@ -34,10 +34,6 @@ function TourDetailPage() {
   useEffect(() => {
     getDetailDoctor(id);
   }, [id]);
-
-  // useEffect(() => {
-  //   getTransports(id);
-  // }, []);
 
   useMemo(() => {
     if (fileData) {
@@ -175,7 +171,7 @@ function TourDetailPage() {
       {edit ? (
         <>
           <TextField
-            label="Name"
+            label="Имя"
             variant="outlined"
             value={tourDetail.name}
             sx={{ width: "30%", marginTop: 5 }}
@@ -194,7 +190,7 @@ function TourDetailPage() {
               variant="contained"
               onClick={() => onSave()}
             >
-              Save
+              Обновить
             </Button>
           </Box>
         </>
@@ -206,7 +202,7 @@ function TourDetailPage() {
       {edit ? (
         <>
           <TextField
-            label="Name"
+            label="Дни работы"
             variant="outlined"
             value={tourDetail.day_work}
             sx={{ width: "30%" }}
@@ -225,7 +221,7 @@ function TourDetailPage() {
               variant="contained"
               onClick={() => onSave()}
             >
-              Save
+              Обновить
             </Button>
           </Box>
         </>
@@ -237,7 +233,7 @@ function TourDetailPage() {
       {edit ? (
         <>
           <TextField
-            label="Price"
+            label="Цена"
             variant="outlined"
             value={tourDetail.price}
             sx={{ width: "30%" }}
@@ -256,7 +252,7 @@ function TourDetailPage() {
               variant="contained"
               onClick={() => onSave()}
             >
-              Save
+              Обновить
             </Button>
           </Box>
         </>
@@ -283,11 +279,11 @@ function TourDetailPage() {
         <>
           <FormControl sx={{ marginTop: 2 }}>
             <Button
-              sx={{ width: "250%", marginBottom: 2 }}
+              sx={{ width: "172%", marginBottom: 2 }}
               variant="contained"
               component="label"
             >
-              Upload Image
+              Вставить новое фото
               <input
                 hidden
                 accept="image/*"
@@ -299,26 +295,27 @@ function TourDetailPage() {
             </Button>
             <Button
               onClick={() => onSave()}
-              sx={{ width: "250%" }}
+              sx={{ width: "172%" }}
               variant="contained"
               color="success"
             >
-              {" "}
-              Save{" "}
+              Обновить
             </Button>
           </FormControl>
           <br />
-          <img
-            style={{
-              borderRadius: "7%",
-              objectFit: "cover",
-              width: "30%",
-              marginTop: 20,
-              marginBottom: 20,
-            }}
-            alt={"Uploaded img"}
-            src={url}
-          />
+          {url && (
+            <img
+              style={{
+                borderRadius: "7%",
+                objectFit: "cover",
+                width: "30%",
+                marginTop: 20,
+                marginBottom: 20,
+              }}
+              alt={"Uploaded img"}
+              src={url}
+            />
+          )}
         </>
       )}
       <Box
@@ -338,7 +335,7 @@ function TourDetailPage() {
                 marginBottom: "10px",
                 fontSize: 20,
                 fontWeight: 500,
-                marginLeft: "30px",
+                marginLeft: "20px",
               }}
               key={index}
             >
@@ -351,9 +348,9 @@ function TourDetailPage() {
             <TextField
               onChange={(e) => setJob(e.target.value)}
               id="outlined-basic"
-              label="Add job Title"
+              label="Добавить должность"
               variant="outlined"
-              sx={{ width: "30%" }}
+              sx={{ width: "30%", marginTop: "20px" }}
             />
             <br />
             <Box display="flex" justifyContent="space-between" width="30%">
@@ -363,7 +360,7 @@ function TourDetailPage() {
                 variant="contained"
                 sx={{ width: "100%", marginTop: 1 }}
               >
-                SAVE
+                Обновить
               </Button>
             </Box>
           </>
@@ -371,12 +368,12 @@ function TourDetailPage() {
       </Box>
       <Box marginTop={5}>
         <Typography sx={{ marginBottom: 2 }} variant="h5">
-          Specialization
+          Специализация
         </Typography>
         {edit ? (
           <>
             <TextField
-              label="specialization"
+              label="Редактировать"
               variant="outlined"
               value={tourDetail.specialization}
               sx={{ width: "100%" }}
@@ -392,21 +389,21 @@ function TourDetailPage() {
               sx={{ width: "100%", marginTop: 1 }}
               onClick={() => onSave()}
             >
-              Save
+              Обновить
             </Button>
           </>
         ) : (
           <Typography variant="h6">{tourDetail?.specialization}</Typography>
         )}
       </Box>
-      <Box marginTop={5}>
+      <Box marginTop={5} mb={5}>
         <Typography sx={{ marginBottom: 2 }} variant="h5">
-          Proffesions
+          Професии
         </Typography>
         {edit ? (
           <>
             <TextField
-              label="specialization"
+              label="Редактировать"
               variant="outlined"
               value={tourDetail.proffesions}
               sx={{ width: "100%" }}
@@ -422,7 +419,7 @@ function TourDetailPage() {
               sx={{ width: "100%", marginTop: 1 }}
               onClick={() => onSave()}
             >
-              Save
+              Обновить
             </Button>
           </>
         ) : (
@@ -448,7 +445,7 @@ function TourDetailPage() {
               variant="contained"
               component="label"
             >
-              Upload Image
+               Вставить новое фото
               <input
                 hidden
                 accept="image/*"
@@ -464,8 +461,7 @@ function TourDetailPage() {
               variant="contained"
               color="success"
             >
-              {" "}
-              Save{" "}
+              Обновить
             </Button>
           </FormControl>
         </>

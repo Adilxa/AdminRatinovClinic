@@ -14,6 +14,7 @@ const TableContainer = ({
   isLoading,
   isFilter = false,
   isSearch = false,
+  children
 }) => {
   const render = () => {
     if (isLoading) {
@@ -51,6 +52,9 @@ const TableContainer = ({
         </Grid>
       </Grid>
       <Table sx={{ minWidth: 650 }} size="medium" aria-label="a dense table">
+            {
+              children && children
+            }
         {render()}
       </Table>
     </TableWrapper>
