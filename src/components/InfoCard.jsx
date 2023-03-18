@@ -33,7 +33,7 @@ const InfoCard = ({ data, des, title, edit, setEdit, index }) => {
             variant="contained"
             onClick={() => onSave()}
           >
-            Save
+            Добавить
           </Button>
         </>
       )}

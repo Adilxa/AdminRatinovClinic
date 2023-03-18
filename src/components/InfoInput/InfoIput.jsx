@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import {
-  Button,
-  TextField,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Button, TextField, Grid, Typography } from "@mui/material";
 
 const InfoInput = ({ onSaveInfo }) => {
   const [infoTitle, setInfoTitle] = useState("");
   const [infoField, setInfoField] = useState("");
   const [info, setInfo] = useState([]);
+  const [clicked, setClicked] = useState(false);
 
   const saveInfo = () => {
     setInfo([...info, infoField]);
@@ -21,7 +17,11 @@ const InfoInput = ({ onSaveInfo }) => {
     title: infoTitle,
     id: info.length + `${infoTitle}`,
   };
-  
+
+  const onSave = () => {
+    onSaveInfo(infoData);
+    setClicked(true);
+  };
   return (
     <Grid
       sx={{
@@ -62,36 +62,71 @@ const InfoInput = ({ onSaveInfo }) => {
             width: "70%",
           }}
         />
-        <Button
-          sx={{
-            width: "30%",
-            height: "56px",
-            marginLeft: "5px",
-          }}
-          variant="contained"
-          onClick={() => saveInfo()}
-        >
-          <Typography
-            variant="h6"
+        {clicked ? (
+          <Button
+          disabled
             sx={{
-              fontSize: 13,
+              width: "30%",
+              height: "56px",
+              marginLeft: "5px",
             }}
+            variant="contained"
           >
-            {" "}
-            Save Field
-          </Typography>
-        </Button>
+            <Typography
+              variant="h6"
+              sx={{
+                fontSize: 13,
+              }}
+            >
+              {" "}
+              Saved
+            </Typography>
+          </Button>
+        ) : (
+          <Button
+            sx={{
+              width: "30%",
+              height: "56px",
+              marginLeft: "5px",
+            }}
+            variant="contained"
+            onClick={() => saveInfo()}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                fontSize: 13,
+              }}
+            >
+              {" "}
+              Save Field
+            </Typography>
+          </Button>
+        )}
       </Grid>
-      <Button
-        onClick={() => onSaveInfo(infoData)}
-        variant="contained"
-        sx={{
-          marginTop: 2,
-          width:"100%"
-        }}
-      >
-        Save Info
-      </Button>
+      {clicked ? (
+        <Button
+          disabled
+          sx={{
+            marginTop: 2,
+            width: "100%",
+            backgroundColor: "#ccc",
+          }}
+        >
+          Clicked
+        </Button>
+      ) : (
+        <Button
+          onClick={() => onSave()}
+          variant="contained"
+          sx={{
+            marginTop: 2,
+            width: "100%",
+          }}
+        >
+          Save Info
+        </Button>
+      )}
     </Grid>
   );
 };

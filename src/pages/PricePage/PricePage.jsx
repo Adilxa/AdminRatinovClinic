@@ -11,8 +11,6 @@ const PricePage = () => {
   useEffect(() => {
     getPrices();
   }, [getPrices]);
-  console.log(prices);
-
   const renderPrice = useMemo(() => prices.map((el) => <Price key={el.tid} {...el}/>), [prices]);
 
   if (isLoading) return <Preloader full />;

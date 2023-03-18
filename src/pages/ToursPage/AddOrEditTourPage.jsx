@@ -15,10 +15,11 @@ import useTours from "../../hooks/useTours";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/firebase";
 import InfoInput from "../../components/InfoInput/InfoIput";
+import Preloader from "../../components/preloader/Preloader";
 
 function AddOrEditTourPage() {
   const { addDoctor } = useTours();
-
+  const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
   const submit = (e) => {
     e.preventDefault();
@@ -47,7 +48,6 @@ function AddOrEditTourPage() {
   const [url, setUrl] = useState();
   const [fileData, setFileData] = useState();
   const [diploma, setDiploma] = useState([]);
-  const [isLoader, setLoader] = useState(true);
 
   const handleImage = (target) => {
     if (target.files[0]) {
@@ -70,7 +70,7 @@ function AddOrEditTourPage() {
   useMemo(() => {
     if (fileData) {
       const imageRef = ref(storage, fileData.name);
-      setLoader(false);
+      setLoading(true);
       uploadBytes(imageRef, fileData)
         .then(() => {
           getDownloadURL(imageRef)
@@ -78,7 +78,7 @@ function AddOrEditTourPage() {
               setUrl(url);
             })
             .finally(() => {
-              setLoader(true);
+              setLoading(false);
             })
             .catch((error) => {
               console.log(error.message, "error");
@@ -95,7 +95,7 @@ function AddOrEditTourPage() {
   useMemo(() => {
     if (fileData2) {
       const imageRef = ref(storage, fileData2.name);
-      setLoader(false);
+      setLoading(true);
       uploadBytes(imageRef, fileData2)
         .then(() => {
           getDownloadURL(imageRef)
@@ -103,7 +103,7 @@ function AddOrEditTourPage() {
               setUrl2(url);
             })
             .finally(() => {
-              setLoader(true);
+              setLoading(false);
             })
             .catch((error) => {
               console.log(error.message, "error");
@@ -120,7 +120,7 @@ function AddOrEditTourPage() {
   useMemo(() => {
     if (fileData3) {
       const imageRef = ref(storage, fileData3.name);
-      setLoader(false);
+      setLoading(true);
       uploadBytes(imageRef, fileData3)
         .then(() => {
           getDownloadURL(imageRef)
@@ -128,7 +128,7 @@ function AddOrEditTourPage() {
               setUrl3(url);
             })
             .finally(() => {
-              setLoader(true);
+              setLoading(false);
             })
             .catch((error) => {
               console.log(error.message, "error");
@@ -251,328 +251,313 @@ function AddOrEditTourPage() {
     year: workExpirience || "",
   };
 
-  if (isLoader) {
-    return (
-      <FormPageContainer>
-        <FormContainer>
-          <form
-            onSubmit={submit}
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "space-between",
-              gap: "50px",
+  if (isLoading) return <Preloader full />;
+  return (
+    <FormPageContainer>
+      <FormContainer>
+        <form
+          onSubmit={submit}
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            gap: "50px",
+          }}
+        >
+          <TextField
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            label="Имя"
+            variant="outlined"
+            required
+            sx={{
+              width: "45%",
             }}
-          >
-            <TextField
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              label="Имя"
-              variant="outlined"
-              required
-              sx={{
-                width: "45%",
-              }}
-            />
-            <TextField
-              value={dayWork}
-              onChange={(e) => setWork(e.target.value)}
-              label="Время работы"
-              variant="outlined"
-              required
-              sx={{
-                width: "45%",
-              }}
-            />
-            <TextField
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              label="Цена"
-              variant="outlined"
-              required
-              type="number"
-              sx={{
-                width: "45%",
-              }}
-            />
-            <TextField
-              value={workExpirience}
-              onChange={(e) => setExpirience(e.target.value)}
-              label="Опыт работы"
-              variant="outlined"
-              required
-              sx={{
-                width: "45%",
-              }}
-            />
-            <TextField
-              value={proffesions}
-              onChange={(e) => setProffesions(e.target.value)}
-              label="Професии"
-              variant="outlined"
-              rows={4}
-              maxRows={1}
-              multiline
-              sx={{
-                width: "45%",
-              }}
-            />
-            <TextField
-              label="Cпециализация"
-              variant="outlined"
-              value={specialization}
-              sx={{ width: "45%" }}
-              multiline
-              required
-              rows={4}
-              maxRows={1}
-              onChange={(e) => setSpecialization(e.target.value)}
-            ></TextField>
-            <TextField
-              value={position}
-              onChange={(e) => setPosition(e.target.value)}
-              label="Позиция Доктора"
-              variant="outlined"
-              required
-              type="number"
-              sx={{
-                width: "45%",
-              }}
-            />
-            <div
-              style={{
-                width: "100%",
-                height: "2px",
-                backgroundColor: "#ccc",
-              }}
-            ></div>
-            <Grid
-              sx={{
-                width: "45%",
-              }}
-            >
-              <TextField
-                value={post}
-                onChange={(e) => setPost(e.target.value)}
-                variant="outlined"
-                label="Професии"
-                sx={{
-                  width: "100%",
-                }}
-              />
-              {postArr ? (
-                <ul
-                  style={{
-                    marginLeft: "20px",
-                  }}
-                >
-                  {postArr.map((el, index) => (
-                    <li
-                      style={{
-                        marginBottom: "5px",
-                        marginTop: "5px",
-                      }}
-                      key={index + "_" + el}
-                    >
-                      {el}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                ""
-              )}
+          />
+          <TextField
+            value={dayWork}
+            onChange={(e) => setWork(e.target.value)}
+            label="Время работы"
+            variant="outlined"
+            required
+            sx={{
+              width: "45%",
+            }}
+          />
+          <TextField
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            label="Цена"
+            variant="outlined"
+            required
+            type="number"
+            sx={{
+              width: "45%",
+            }}
+          />
+          <TextField
+            value={workExpirience}
+            onChange={(e) => setExpirience(e.target.value)}
+            label="Опыт работы"
+            variant="outlined"
+            required
+            type="number"
+            sx={{
+              width: "45%",
+            }}
+          />
+          <TextField
+            value={proffesions}
+            onChange={(e) => setProffesions(e.target.value)}
+            label="Професии"
+            variant="outlined"
+            rows={4}
+            maxRows={1}
+            multiline
+            sx={{
+              width: "45%",
+            }}
+          />
+          <TextField
+            label="Cпециализация"
+            variant="outlined"
+            value={specialization}
+            sx={{ width: "45%" }}
+            multiline
+            required
+            rows={4}
+            maxRows={1}
+            onChange={(e) => setSpecialization(e.target.value)}
+          ></TextField>
+          <TextField
+            value={position}
+            onChange={(e) => setPosition(e.target.value)}
+            label="Позиция Доктора"
+            variant="outlined"
+            required
+            type="number"
+            sx={{
+              width: "45%",
+            }}
+          />
+
+          <div
+            style={{
+              width: "100%",
+              height: "2px",
+              backgroundColor: "#ccc",
+            }}
+          ></div>
+          <Grid display="block">
+            <Typography variant="h5">Дипломы</Typography>
+            <FormControl sx={{ marginTop: 2 }}>
               <Button
-                onClick={() => savePost()}
-                sx={{
-                  width: "100%",
-                  marginTop: 1,
-                }}
+                sx={{ width: "165%", marginBottom: 2 }}
                 variant="contained"
+                component="label"
+              >
+                Добавить диплом
+                <input
+                  hidden
+                  accept="image/*"
+                  multiple
+                  type="file"
+                  onChange={(e) => handleImage(e.target)}
+                  name="file"
+                />
+              </Button>
+              <Button
+                onClick={onSaveDiplom}
+                sx={{ width: "165%" }}
+                variant="contained"
+                color="success"
+              >
+                Добавить
+              </Button>
+            </FormControl>
+          </Grid>
+          <br />
+          <Grid display="flex" flexWrap="wrap" gap={3}>
+            {renderDiplomas}
+          </Grid>
+          <div
+            style={{
+              width: "100%",
+              height: "2px",
+              backgroundColor: "#ccc",
+            }}
+          ></div>
+          <Grid display="block">
+            <Typography variant="h5">Полный рост</Typography>
+            <FormControl sx={{ marginTop: 2 }}>
+              <Button
+                sx={{ width: "165%", marginBottom: 2 }}
+                variant="contained"
+                component="label"
+              >
+                Добавить фото в полный рост
+                <input
+                  hidden
+                  accept="image/*"
+                  multiple
+                  type="file"
+                  onChange={(e) => handleImage2(e.target)}
+                  name="file"
+                />
+              </Button>
+              <Button
+                onClick={onSaveDiplom2}
+                sx={{ width: "165%" }}
+                variant="contained"
+                color="success"
               >
                 Сохранить
               </Button>
-            </Grid>
-            <Grid
+            </FormControl>
+          </Grid>
+          <Grid display="flex" flexWrap="wrap" gap={3}>
+            {renderFullImg}
+          </Grid>
+          <div
+            style={{
+              width: "100%",
+              height: "2px",
+              backgroundColor: "#ccc",
+            }}
+          ></div>
+          <Grid display="block">
+            <Typography variant="h5">Лицо</Typography>
+            <FormControl sx={{ marginTop: 2 }}>
+              <Button
+                sx={{ width: "165%", marginBottom: 2 }}
+                variant="contained"
+                component="label"
+              >
+                Добавить фото не в полный рост
+                <input
+                  hidden
+                  accept="image/*"
+                  multiple
+                  type="file"
+                  onChange={(e) => handleImage3(e.target)}
+                  name="file"
+                />
+              </Button>
+              <Button
+                onClick={onSaveDiplom3}
+                sx={{ width: "165%" }}
+                variant="contained"
+                color="success"
+              >
+                Сохранить
+              </Button>
+            </FormControl>
+          </Grid>
+          <Grid display="flex" flexWrap="wrap" gap={3}>
+            {renderImg}
+          </Grid>
+          <div
+            style={{
+              width: "100%",
+              height: "2px",
+              backgroundColor: "#ccc",
+            }}
+          ></div>
+          <Grid
+            sx={{
+              width: "45%",
+            }}
+          >
+            <TextField
+              value={post}
+              onChange={(e) => setPost(e.target.value)}
+              variant="outlined"
+              label="Професии"
               sx={{
-                display: "flex",
-                alignItems: "flex-start",
-                justifyContent: "space-between",
-                width: "45%",
+                width: "100%",
               }}
+            />
+            {postArr ? (
+              <ul
+                style={{
+                  marginLeft: "20px",
+                }}
+              >
+                {postArr.map((el, index) => (
+                  <li
+                    style={{
+                      marginBottom: "5px",
+                      marginTop: "5px",
+                    }}
+                    key={index + "_" + el}
+                  >
+                    {el}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              ""
+            )}
+            <Button
+              onClick={() => savePost()}
+              sx={{
+                width: "100%",
+                marginTop: 1,
+              }}
+              variant="contained"
             >
-              <Button
-                variant="contained"
-                onClick={() => setTestArr([...testArr, " "])}
-                sx={{
-                  width: "45%",
-                  height: "100%",
-                }}
-              >
-                Add one Info
-              </Button>
-              <Button
-                color="error"
-                variant="contained"
-                onClick={() =>
-                  testArr.length > 1 && setTestArr([testArr.pop()])
-                }
-                sx={{
-                  width: "45%",
-                  height: "100%",
-                }}
-              >
-                Remove all info
-              </Button>
-            </Grid>
-            {renderInfos}
-            <div
-              style={{
-                width: "100%",
-                height: "2px",
-                backgroundColor: "#ccc",
-              }}
-            ></div>
-            <Grid display="block">
-              <Typography variant="h5">Дипломы</Typography>
-              <FormControl sx={{ marginTop: 2 }}>
-                <Button
-                  sx={{ width: "165%", marginBottom: 2 }}
-                  variant="contained"
-                  component="label"
-                >
-                  Upload Image
-                  <input
-                    hidden
-                    accept="image/*"
-                    multiple
-                    type="file"
-                    onChange={(e) => handleImage(e.target)}
-                    name="file"
-                  />
-                </Button>
-                <Button
-                  onClick={onSaveDiplom}
-                  sx={{ width: "165%" }}
-                  variant="contained"
-                  color="success"
-                >
-                  {" "}
-                  Save{" "}
-                </Button>
-              </FormControl>
-            </Grid>
-            <br />
-            <Grid display="flex" flexWrap="wrap" gap={3}>
-              {renderDiplomas}
-            </Grid>
-            <div
-              style={{
-                width: "100%",
-                height: "2px",
-                backgroundColor: "#ccc",
-              }}
-            ></div>
-            <Grid display="block">
-              <Typography variant="h5">Полный рост</Typography>
-              <FormControl sx={{ marginTop: 2 }}>
-                <Button
-                  sx={{ width: "165%", marginBottom: 2 }}
-                  variant="contained"
-                  component="label"
-                >
-                  Upload Full Size Img
-                  <input
-                    hidden
-                    accept="image/*"
-                    multiple
-                    type="file"
-                    onChange={(e) => handleImage2(e.target)}
-                    name="file"
-                  />
-                </Button>
-                <Button
-                  onClick={onSaveDiplom2}
-                  sx={{ width: "165%" }}
-                  variant="contained"
-                  color="success"
-                >
-                  {" "}
-                  Save{" "}
-                </Button>
-              </FormControl>
-            </Grid>
-            <Grid display="flex" flexWrap="wrap" gap={3}>
-              {renderFullImg}
-            </Grid>
-            <div
-              style={{
-                width: "100%",
-                height: "2px",
-                backgroundColor: "#ccc",
-              }}
-            ></div>
-            <Grid display="block">
-              <Typography variant="h5">Лицо</Typography>
-              <FormControl sx={{ marginTop: 2 }}>
-                <Button
-                  sx={{ width: "165%", marginBottom: 2 }}
-                  variant="contained"
-                  component="label"
-                >
-                  Upload image
-                  <input
-                    hidden
-                    accept="image/*"
-                    multiple
-                    type="file"
-                    onChange={(e) => handleImage3(e.target)}
-                    name="file"
-                  />
-                </Button>
-                <Button
-                  onClick={onSaveDiplom3}
-                  sx={{ width: "165%" }}
-                  variant="contained"
-                  color="success"
-                >
-                  {" "}
-                  Save{" "}
-                </Button>
-              </FormControl>
-            </Grid>
-            <Grid display="flex" flexWrap="wrap" gap={3}>
-              {renderImg}
-            </Grid>
-            <div
-              style={{
-                width: "100%",
-                height: "2px",
-                backgroundColor: "#ccc",
-              }}
-            ></div>
+              Сохранить
+            </Button>
+          </Grid>
+          <Grid
+            sx={{
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+              width: "45%",
+            }}
+          >
             <Button
               variant="contained"
-              sx={{ width: "45%", height: "80px" }}
-              type="submit"
+              onClick={() => setTestArr([...testArr, " "])}
+              sx={{
+                width: "45%",
+                height: "100%",
+              }}
             >
-              Save Doctor
+              Add one Info
             </Button>
-          </form>
-        </FormContainer>
-      </FormPageContainer>
-    );
-  } else {
-    return (
-      <Grid
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        sx={{ height: "100vh" }}
-      >
-        <CircularProgress />
-      </Grid>
-    );
-  }
+            <Button
+              color="error"
+              variant="contained"
+              onClick={() => testArr.length > 1 && setTestArr([testArr.pop()])}
+              sx={{
+                width: "45%",
+                height: "100%",
+              }}
+            >
+              Remove all info
+            </Button>
+          </Grid>
+          {renderInfos}
+          <div
+            style={{
+              width: "100%",
+              height: "2px",
+              backgroundColor: "#ccc",
+            }}
+          ></div>
+          <Button
+            variant="contained"
+            sx={{ width: "45%", height: "80px" }}
+            type="submit"
+          >
+            Save Doctor
+          </Button>
+        </form>
+      </FormContainer>
+    </FormPageContainer>
+  );
 }
 
 export default AddOrEditTourPage;
