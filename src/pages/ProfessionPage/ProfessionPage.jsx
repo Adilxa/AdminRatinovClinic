@@ -34,8 +34,8 @@ const ProfessionPage = () => {
   const onSave = () => {
     if (prof) {
       addProfession(data);
-      setAdd(false)
-      setProf("")
+      setAdd(false);
+      setProf("");
     } else {
       alert("Заполните поле!");
     }
@@ -43,7 +43,7 @@ const ProfessionPage = () => {
 
   if (isLoading) return <Preloader full />;
   return (
-    <PageContainer>
+    <PageContainer title="Профессии">
       <TableContainer
         isLoading={isLoading}
         Header={

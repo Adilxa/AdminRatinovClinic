@@ -21,6 +21,9 @@ import YoutubePage from "../pages/YoutubePage/YoutubePage";
 import YoutubeDetail from "../pages/YoutubePage/YoutubeDetail";
 import AddVideo from "../pages/YoutubePage/AddVideo";
 import ProfessionPage from "../pages/ProfessionPage/ProfessionPage";
+import ResultPage from "../pages/ResultPage/ResultPage";
+import AddResult from "../pages/ResultPage/AddResult";
+import DetailResult from "../pages/ResultPage/DetailResult";
 
 const useRoutes = (isAuth) => {
   if (!isAuth) {
@@ -64,6 +67,9 @@ const useRoutes = (isAuth) => {
           <Route path="/youtube/:id" element={<YoutubeDetail />} />
           <Route path="/youtube/create" element={<AddVideo />} />
           <Route path="/profession" element={<ProfessionPage />} />
+          <Route path="/results" element={<ResultPage />} />
+          <Route path="/results/create" element={<AddResult />} />
+          <Route path="/results/:id" element={<DetailResult />} />
         </Routes>
       </Grid>
     </Grid>
