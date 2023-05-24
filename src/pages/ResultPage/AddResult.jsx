@@ -16,7 +16,7 @@ const AddResult = () => {
   const [time, setTime] = useState("");
   const [timeDes, setTimeDes] = useState("");
   const [type, setType] = useState(false);
-  const { setLoading, isLoading, addResult , getResult , result } = useResult();
+  const { setLoading, isLoading, addResult, getResult, result } = useResult();
   //
 
   const [url, setUrl] = useState();
@@ -69,8 +69,6 @@ const AddResult = () => {
     }
   };
 
-  //can send empty data fix
-
   const navigate = useNavigate();
   const data = {
     afterComplaints: afterComplaints,
@@ -81,15 +79,14 @@ const AddResult = () => {
     time: time,
     timeDes: timeDes,
     type: isType(type),
-    num: result.length + 1
+    num: result.length + 1,
   };
-
 
   const onAdd = () => {
     if (data.afterComplaints || data.appointment) {
       addResult(data);
       navigate("/results");
-    } else { 
+    } else {
       alert("Заполните поля!");
     }
   };

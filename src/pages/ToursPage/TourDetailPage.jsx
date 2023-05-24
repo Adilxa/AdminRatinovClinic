@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import PageContainer from "../../components/containers/PageContainer";
 import Preloader from "../../components/preloader/Preloader";
-import useTransports from "../../hooks/useTransports";
 import { storage } from "../../firebase/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import useTours from "../../hooks/useTours";
@@ -27,7 +26,6 @@ function TourDetailPage() {
   const [fileData2, setFileData2] = useState();
 
   const onSave = () => {
-    setEdit(false);
     updateDoctor(id, data);
   };
 
@@ -64,6 +62,20 @@ function TourDetailPage() {
     tourDetail?.diplomas.push(url2);
     updateDoctor(id, data);
   };
+
+  const renderDiplomas = useMemo(
+    () =>
+      tourDetail?.diplomas &&
+      tourDetail.diplomas.map((el, index) => (
+        <img
+          key={index}
+          src={el}
+          alt="diploma"
+          style={{ width: "280px", height: "360px" }}
+        ></img>
+      )),
+    [onSaveDiplom, url2]
+  );
 
   useMemo(() => {
     if (fileData2) {
@@ -114,7 +126,7 @@ function TourDetailPage() {
     day_work: SWork || tourDetail?.day_work,
     diplomas: tourDetail?.diplomas,
     fullSizeImg: tourDetail?.fullSizeImg,
-    img: url === undefined && tourDetail?.img,
+    img: url == undefined ? tourDetail?.img : url,
     imgPos: tourDetail?.imgPos,
     info: tourDetail?.info,
     name: tourDetail?.name,
@@ -126,7 +138,6 @@ function TourDetailPage() {
     specialization: SSpec || tourDetail?.specialization,
     year: tourDetail?.year || tourDetail?.year,
   };
-  console.log(tourDetail?.info);
 
   const sendPost = () => {
     if (Sjob.length > 0) {
@@ -259,7 +270,7 @@ function TourDetailPage() {
       ) : (
         <Typography variant="h6">Цена: {tourDetail?.price} coм</Typography>
       )}
-      {tourDetail.img.length > 1 && (
+      {tourDetail.img && (
         <>
           <img
             style={{
@@ -428,14 +439,7 @@ function TourDetailPage() {
       </Box>
       <Box width="100%">
         <Typography variant="h5">Дипломы</Typography>
-        {tourDetail.diplomas.map((el, index) => (
-          <img
-            key={index}
-            src={el}
-            alt="diploma"
-            style={{ width: "280px", height: "360px" }}
-          ></img>
-        ))}
+        {renderDiplomas}
       </Box>
       {edit && (
         <>
@@ -445,7 +449,7 @@ function TourDetailPage() {
               variant="contained"
               component="label"
             >
-               Вставить новое фото
+              Вставить новое фото
               <input
                 hidden
                 accept="image/*"
@@ -456,7 +460,7 @@ function TourDetailPage() {
               />
             </Button>
             <Button
-              onClick={() => onSaveDiplom().finally(alert("hello"))}
+              onClick={() => onSaveDiplom()}
               sx={{ width: "165%" }}
               variant="contained"
               color="success"

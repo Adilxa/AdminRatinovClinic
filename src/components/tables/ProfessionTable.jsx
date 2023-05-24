@@ -21,6 +21,7 @@ const ProfessionTable = ({ tid, proffesion }) => {
   useEffect(() => {
     getProfession(tid);
   }, [tid]);
+  
   const onDelete = async (e) => {
     e.stopPropagation();
     const res = window?.confirm(

@@ -14,7 +14,7 @@ const ProfessionPage = () => {
 
   useEffect(() => {
     getProfessions();
-  }, [getProfessions]);
+  }, [getProfessions, addProfession]);
 
   const [add, setAdd] = useState(false);
   const [prof, setProf] = useState("");

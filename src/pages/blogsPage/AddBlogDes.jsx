@@ -19,9 +19,7 @@ const AddBlogDes = ({ setDes, index, des }) => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         label="Description"
-        required
         multiline
-        minRows={4}
       />
       <br />
       <Button

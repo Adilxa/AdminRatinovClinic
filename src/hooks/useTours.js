@@ -41,7 +41,7 @@ const useTours = () => {
     if (res.exists()) {
       setTourDetail(res.data());
     } else {
-      setError("Данный тур не найден!");
+      setError("Данныйe не найденs!");
     }
   };
 
