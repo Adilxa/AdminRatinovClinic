@@ -26,9 +26,17 @@ function ToursPage() {
       item?.name
         .includes("КУБАНЫЧБЕК КЫЗЫ ГУЛДААНА") ||
       item?.name
-        .includes("АЙДАРАЛИЕВА ФАРИЗАТ ЖЕЕНКУЛОВНА")
+        .includes("АЙДАРАЛИЕВА ФАРИЗАТ ЖЕЕНКУЛОВНА") ||
+      item?.proffesions
+        .includes("Медсестра") ||
+      item?.proffesions
+        .includes("Массажист") ||
+      item?.proffesions
+        .includes("специалист по лечебной физкультуре")
     );
   });
+
+  console.log(tours);
 
   const filteredListDoctors = tours.filter(item => {
     return !(
@@ -43,7 +51,13 @@ function ToursPage() {
       item?.name
         .includes("КУБАНЫЧБЕК КЫЗЫ ГУЛДААНА") ||
       item?.name
-        .includes("АЙДАРАЛИЕВА ФАРИЗАТ ЖЕЕНКУЛОВНА")
+        .includes("АЙДАРАЛИЕВА ФАРИЗАТ ЖЕЕНКУЛОВНА") ||
+      item?.proffesions
+        .includes("Медсестра") ||
+      item?.proffesions
+        .includes("Массажист") ||
+      item?.proffesions
+        .includes("специалист по лечебной физкультуре")
     );
   });
 
