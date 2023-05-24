@@ -18,9 +18,13 @@ import InfoInput from "../../components/InfoInput/InfoIput";
 import Preloader from "../../components/preloader/Preloader";
 
 function AddOrEditTourPage() {
+
   const { addDoctor } = useTours();
+
   const [isLoading, setLoading] = useState(false);
+
   const navigate = useNavigate();
+
   const submit = (e) => {
     e.preventDefault();
     navigate("/");
@@ -54,6 +58,7 @@ function AddOrEditTourPage() {
       setFileData(target.files[0]);
     }
   };
+
   //upload fullsize img
   const [url2, setUrl2] = useState();
   const [fileData2, setFileData2] = useState();
@@ -67,6 +72,7 @@ function AddOrEditTourPage() {
   const onSaveDiplom = () => {
     setDiploma((prev) => [...prev, url]);
   };
+
   useMemo(() => {
     if (fileData) {
       const imageRef = ref(storage, fileData.name);
@@ -189,33 +195,31 @@ function AddOrEditTourPage() {
 
   const renderFullImg = useMemo(() => {
     if (diploma2.length) {
-      return diploma2.map((el, index) => (
+      return (
         <img
           style={{
             width: "200px",
             heigth: "250px",
           }}
-          key={`${el}_${index}`}
-          src={el}
+          src={diploma2[diploma2.length - 1]}
           alt="diploma"
         />
-      ));
+      );
     }
   }, [diploma2]);
 
   const renderImg = useMemo(() => {
     if (diploma3.length) {
-      return diploma3.map((el, index) => (
+      return (
         <img
           style={{
             width: "200px",
             heigth: "250px",
           }}
-          key={`${el}_${index}`}
-          src={el}
+          src={diploma3[diploma3.length - 1]}
           alt="diploma"
         />
-      ));
+      );
     }
   }, [diploma3]);
 
@@ -549,7 +553,7 @@ function AddOrEditTourPage() {
           ></div>
           <Button
             variant="contained"
-            sx={{ width: "45%", height: "80px" }}
+            sx={{ width: "100%", height: "80px" }}
             type="submit"
           >
             Save Doctor

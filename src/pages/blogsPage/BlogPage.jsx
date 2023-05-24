@@ -1,30 +1,42 @@
-import { Grid, Typography } from "@mui/material";
 import React, { useEffect, useMemo } from "react";
-import FormPageContainer from "../../components/containers/FormPageContainer";
 import PageContainer from "../../components/containers/PageContainer";
 import Preloader from "../../components/preloader/Preloader";
 import useBLogs from "../../hooks/useBlogs";
-import Blog from "./Blog";
+import { TableRow, TableCell } from "@mui/material";
+import BlogsTable from "../../components/tables/BlogsTable";
+import TableContainer from "../../components/TableContainer/TableContainer";
 
 const BlogPage = () => {
-  const { getBlogs, blogs, isLoading, updateBlog, detailBlog } = useBLogs();
+  const { getBlogs, blogs, isLoading, updateBlog } = useBLogs();
   useEffect(() => {
     getBlogs();
   }, [getBlogs]);
 
   const renderBlogs = useMemo(
-    () => blogs.map((el) => <Blog key={el.tid} {...el} />),
-    [blogs, updateBlog, detailBlog]
+    () => blogs.map((el) => <BlogsTable key={el.tid} {...el} />),
+    [blogs, updateBlog]
   );
 
   if (isLoading) return <Preloader full />;
   return (
     <PageContainer
       title="Блоги"
-      pathToAdd="/blogs/create"
-      btnText={"+ Добавить Блог"}
+      pathToAdd={"/blogs/create"}
+      btnText="+ Добавить Блог"
     >
-      <Grid>{renderBlogs}</Grid>
+      <TableContainer
+        isLoading={isLoading}
+        Header={
+          <TableRow>
+            <TableCell>Тип</TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell />
+          </TableRow>
+        }
+        Body={renderBlogs}
+      ></TableContainer>
     </PageContainer>
   );
 };

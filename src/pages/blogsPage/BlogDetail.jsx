@@ -68,7 +68,7 @@ const BlogDetail = () => {
     img: url || detailBlog?.img,
     title: title || detailBlog?.title,
   };
-  console.log(data);
+
   const update = () => {
     navigate("/blogs");
     updateBlog(id, data);

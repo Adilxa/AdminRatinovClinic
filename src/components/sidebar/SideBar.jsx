@@ -14,6 +14,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import BookIcon from "@mui/icons-material/Book";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
 
 const links = [
   {
@@ -27,16 +28,6 @@ const links = [
     Icon: CommentIcon,
   },
   {
-    path: "/price",
-    title: "Цены",
-    Icon: AttachMoneyIcon,
-  },
-  {
-    path: "/blogs",
-    title: "Блоги",
-    Icon: BookIcon,
-  },
-  {
     path: "/youtube",
     title: "Видео",
     Icon: YouTubeIcon,
@@ -45,6 +36,21 @@ const links = [
     path: "/profession",
     title: "Профессии",
     Icon: LocalHospitalIcon,
+  },
+  {
+    path: "/results",
+    title: "Результаты",
+    Icon: AnalyticsIcon,
+  },
+  {
+    path: "/price",
+    title: "Цены",
+    Icon: AttachMoneyIcon,
+  },
+  {
+    path: "/blogs",
+    title: "Блоги",
+    Icon: BookIcon,
   },
 ];
 
@@ -76,6 +82,7 @@ function SideBar() {
             </ListItemButton>
           </ListItem>
         ))}
+        <br />
         <br />
         <br />
         <ListItem disablePadding onClick={onLogout}>
