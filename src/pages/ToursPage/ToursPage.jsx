@@ -13,62 +13,13 @@ function ToursPage() {
     getDoctor();
   }, [getDoctor]);
 
-  const filteredList = tours.filter(item => {
-    return (
-      item?.name
-        .includes("ДАЙДАКЕЕВА ГУЛИНА ТОКТОНАЛИЕВНА") ||
-      item?.name
-        .includes("КОНОПЛЕВ ТИМОФЕЙ ДМИТРИЕВИЧ") ||
-      item?.name
-        .includes("ОСМАНОВА ГУЗАЛИЯ БЕГИВАЕВНА") ||
-      item?.name
-        .includes("ХЕГАЙ МАРИНА ФЕДОРОВНА") ||
-      item?.name
-        .includes("КУБАНЫЧБЕК КЫЗЫ ГУЛДААНА") ||
-      item?.name
-        .includes("АЙДАРАЛИЕВА ФАРИЗАТ ЖЕЕНКУЛОВНА") ||
-      item?.proffesions
-        .includes("Медсестра") ||
-      item?.proffesions
-        .includes("Массажист") ||
-      item?.proffesions
-        .includes("специалист по лечебной физкультуре")
-    );
-  });
-
-  console.log(tours);
-
-  const filteredListDoctors = tours.filter(item => {
-    return !(
-      item?.name
-        .includes("ДАЙДАКЕЕВА ГУЛИНА ТОКТОНАЛИЕВНА") ||
-      item?.name
-        .includes("КОНОПЛЕВ ТИМОФЕЙ ДМИТРИЕВИЧ") ||
-      item?.name
-        .includes("ОСМАНОВА ГУЗАЛИЯ БЕГИВАЕВНА") ||
-      item?.name
-        .includes("ХЕГАЙ МАРИНА ФЕДОРОВНА") ||
-      item?.name
-        .includes("КУБАНЫЧБЕК КЫЗЫ ГУЛДААНА") ||
-      item?.name
-        .includes("АЙДАРАЛИЕВА ФАРИЗАТ ЖЕЕНКУЛОВНА") ||
-      item?.proffesions
-        .includes("Медсестра") ||
-      item?.proffesions
-        .includes("Массажист") ||
-      item?.proffesions
-        .includes("специалист по лечебной физкультуре")
-    );
-  });
-
   const renderList = useMemo(
-    () => filteredListDoctors.map((el) => <TourTable key={el.tid} {...el} />),
+    () => tours.filter((el) => el.medType == true).map((el) => <TourTable key={el.tid} {...el} />),
     [tours]
   );
 
-
   const renderPersenal = useMemo(
-    () => filteredList.map((el) => <TourTable key={el.tid} {...el} />),
+    () => tours.filter((el) => el.medType == false).map((el) => <TourTable key={el.tid} {...el} />),
     [tours]
   )
 

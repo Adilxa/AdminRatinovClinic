@@ -43,6 +43,7 @@ function AddOrEditTourPage() {
   const [position, setPosition] = useState();
   const [post, setPost] = useState("");
   const [postArr, setPostArr] = useState([]);
+  const [medPersonal, setPersonal] = useState(false);
 
   const [infoArr, setInfoArr] = useState([]);
   const [infoTitle, setInfoTitle] = useState("");
@@ -253,7 +254,10 @@ function AddOrEditTourPage() {
     proffesions: proffesions || "",
     specialization: specialization || "",
     year: workExpirience || "",
+    medType: medPersonal
   };
+
+  console.log(medPersonal);
 
   if (isLoading) return <Preloader full />;
   return (
@@ -344,7 +348,23 @@ function AddOrEditTourPage() {
               width: "45%",
             }}
           />
-
+          <Grid sx={{
+            display: "flex",
+            gap: 3
+          }}>
+            {
+              medPersonal ?
+                <>
+                  <Button variant="outlined" onClick={() => setPersonal(false)}>Мед персонал</Button>
+                  <Button variant="contained">Врач</Button>
+                </>
+                :
+                <>
+                  <Button variant="contained">Мед персонал</Button>
+                  <Button variant="outlined" onClick={() => setPersonal(true)} >Врач</Button>
+                </>
+            }
+          </Grid>
           <div
             style={{
               width: "100%",
