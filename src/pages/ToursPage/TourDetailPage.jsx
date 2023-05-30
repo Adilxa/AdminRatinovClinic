@@ -19,6 +19,7 @@ function TourDetailPage() {
     setLoading,
   } = useTours();
 
+
   const [url, setUrl] = useState();
   const [fileData, setFileData] = useState();
 
@@ -29,9 +30,15 @@ function TourDetailPage() {
     updateDoctor(id, data);
   };
 
+  const [diploma, setDiploma] = useState(null)
+
   useEffect(() => {
     getDetailDoctor(id);
   }, [id]);
+
+  useEffect(() => {
+    setDiploma(tourDetail?.diplomas)
+  }, [tourDetail]);
 
   useMemo(() => {
     if (fileData) {
@@ -42,6 +49,7 @@ function TourDetailPage() {
           getDownloadURL(imageRef)
             .then((url) => {
               setUrl(url);
+
             })
             .finally(() => {
               setLoading(false);
@@ -59,14 +67,13 @@ function TourDetailPage() {
   }, [fileData]);
 
   const onSaveDiplom = () => {
-    tourDetail?.diplomas.push(url2);
-    updateDoctor(id, data);
+    updateDoctor(id, { ...data, diplomas: diploma });
   };
 
   const renderDiplomas = useMemo(
     () =>
-      tourDetail?.diplomas &&
-      tourDetail.diplomas.map((el, index) => (
+      diploma &&
+      diploma.map((el, index) => (
         <img
           key={index}
           src={el}
@@ -74,7 +81,7 @@ function TourDetailPage() {
           style={{ width: "280px", height: "360px" }}
         ></img>
       )),
-    [onSaveDiplom, url2]
+    [diploma, url2]
   );
 
   useMemo(() => {
@@ -87,6 +94,7 @@ function TourDetailPage() {
           getDownloadURL(imageRef)
             .then((url2) => {
               setUrl2(url2);
+              setDiploma([...diploma, url2])
             })
             .finally(() => {
               setLoading(false);
@@ -121,6 +129,8 @@ function TourDetailPage() {
   const [Sjob, setJob] = useState([]);
   const [edit, setEdit] = useState(false);
   const [SPrice, setPrice] = useState(tourDetail?.price);
+
+  console.log(diploma);
 
   const data = {
     day_work: SWork || tourDetail?.day_work,
