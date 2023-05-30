@@ -130,8 +130,6 @@ function TourDetailPage() {
   const [edit, setEdit] = useState(false);
   const [SPrice, setPrice] = useState(tourDetail?.price);
 
-  console.log(diploma);
-
   const data = {
     day_work: SWork || tourDetail?.day_work,
     diplomas: tourDetail?.diplomas,
@@ -140,7 +138,7 @@ function TourDetailPage() {
     imgPos: tourDetail?.imgPos,
     info: tourDetail?.info,
     name: tourDetail?.name,
-    photo: tourDetail?.photo,
+    photo: tourDetail?.photo || "",
     pos: tourDetail?.pos,
     post: tourDetail?.post,
     price: Number(SPrice || tourDetail?.price),
