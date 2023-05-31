@@ -25,8 +25,10 @@ function TourDetailPage() {
   const [url2, setUrl2] = useState();
   const [fileData2, setFileData2] = useState();
 
+  const [diploma, setDiploma] = useState(null)
+
   const onSave = () => {
-    updateDoctor(id, data);
+    updateDoctor(id, { ...data, diplomas: diploma });
   };
 
   useEffect(() => {
@@ -36,7 +38,6 @@ function TourDetailPage() {
   useEffect(() => {
     setDiploma(tourDetail?.diplomas)
   }, [tourDetail]);
-
 
   useMemo(() => {
     if (fileData) {
@@ -64,14 +65,14 @@ function TourDetailPage() {
   }, [fileData]);
 
   const onSaveDiplom = () => {
-    tourDetail?.diplomas.push(url2);
+    setDiploma([...diploma, url2])
     updateDoctor(id, data);
   };
 
   const renderDiplomas = useMemo(
     () =>
-      tourDetail?.diplomas &&
-      tourDetail.diplomas.map((el, index) => (
+      diploma &&
+      diploma.map((el, index) => (
         <img
           key={index}
           src={el}
@@ -79,7 +80,7 @@ function TourDetailPage() {
           style={{ width: "280px", height: "360px" }}
         ></img>
       )),
-    [onSaveDiplom, url2]
+    [diploma, url2]
   );
 
   useMemo(() => {
@@ -92,6 +93,7 @@ function TourDetailPage() {
           getDownloadURL(imageRef)
             .then((url2) => {
               setUrl2(url2);
+              setDiploma([...diploma, url2])
             })
             .finally(() => {
               setLoading(false);
@@ -135,7 +137,7 @@ function TourDetailPage() {
     imgPos: tourDetail?.imgPos,
     info: tourDetail?.info,
     name: tourDetail?.name,
-    photo: tourDetail?.photo,
+    photo: tourDetail?.photo || "",
     pos: tourDetail?.pos,
     post: tourDetail?.post,
     price: Number(SPrice || tourDetail?.price),
