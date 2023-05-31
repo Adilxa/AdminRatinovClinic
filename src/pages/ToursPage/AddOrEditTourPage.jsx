@@ -192,7 +192,9 @@ function AddOrEditTourPage() {
         />
       ));
     }
-  }, [diploma]);
+  }, [diploma, url]);
+
+  console.log(url);
 
   const renderFullImg = useMemo(() => {
     if (diploma2.length) {
@@ -256,8 +258,6 @@ function AddOrEditTourPage() {
     year: workExpirience || "",
     medType: medPersonal
   };
-
-  console.log(medPersonal);
 
   if (isLoading) return <Preloader full />;
   return (
