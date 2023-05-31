@@ -492,4 +492,5 @@ function TourDetailPage() {
   );
 }
 
+
 export default TourDetailPage;
