@@ -40,6 +40,7 @@ function TourDetailPage() {
     setDiploma(tourDetail?.diplomas)
   }, [tourDetail]);
 
+
   useMemo(() => {
     if (fileData) {
       const imageRef = ref(storage, fileData.name);
